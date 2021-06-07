@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,37 @@ namespace StudentBankAccount
     class Program
     {
         static void Main(string[] args)
+        {
+            CarregarContas();
+
+            Console.WriteLine("Execução finalizada. Tecle enter para sair.");
+            Console.ReadLine();
+        }
+
+        private static void CarregarContas()
+        {
+            LeitorDeArquivo leitor = null;
+            try
+            {
+                leitor = new LeitorDeArquivo("contas.txt");
+                leitor.LerProximaLinha();
+                leitor.LerProximaLinha();
+                leitor.LerProximaLinha();
+            }
+            catch (IOException)
+            {
+                Console.WriteLine("Exceção do tipo IOException capturada e tratada!");
+            }
+            finally
+            {
+                if(leitor != null)
+                {
+                    leitor.Fechar();
+                }
+            }
+        }
+
+        private static void TestaInnerException()
         {
             try
             {
@@ -30,8 +62,8 @@ namespace StudentBankAccount
 
             Console.WriteLine("Execução finalizada. Tecle enter para sair");
             Console.ReadLine();
-
         }
+
         private static void Metodo()
         {
             TestaDivisao(0);
