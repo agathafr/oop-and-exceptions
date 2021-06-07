@@ -14,10 +14,13 @@ namespace StudentBankAccount
             {
                 ContaCorrente conta = new ContaCorrente(456, 4578420);
                 ContaCorrente conta2 = new ContaCorrente(485, 456487);
+
+                conta2.Transferir(10000, conta);
+
                 conta.Depositar(50);
-                conta2.Transferir(60, conta);
-                Console.WriteLine(conta.Saldo);
-                conta.Sacar(500);
+                Console.WriteLine("Saldo da conta: " + conta.Saldo);
+                conta.Sacar(-500);
+                Console.WriteLine("Saldo da conta após saque: " + conta.Saldo);
             }
             catch (ArgumentException ex)
             {
@@ -27,6 +30,10 @@ namespace StudentBankAccount
             }
             catch (SaldoInsuficienteException ex)
             {
+                Console.WriteLine("Saldo da conta no momento da exceção: " + ex.Saldo);
+                Console.WriteLine("Valor do saque: " + ex.ValorSaque);
+
+                Console.WriteLine(ex.StackTrace);
                 
                 Console.WriteLine("Exceção do tipo SaldoInsuficienteException");
                 Console.WriteLine(ex.Message);
@@ -34,8 +41,8 @@ namespace StudentBankAccount
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                Console.WriteLine("Execução finalizada. Tecle enter para sair.");
             }
-
 
             Console.ReadLine();
         }

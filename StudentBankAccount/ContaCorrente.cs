@@ -13,6 +13,9 @@ namespace StudentBankAccount
         public static int TotalDeContasCriadas { get; private set; }
 
         public Cliente Titular { get; set; }
+
+        public int ContadorSaquesNaoPermitidos { get; private set; }
+        public int ContadorTransferenciasNaoPermitidas { get; private set; }
       
         public int Numero { get; }
 
@@ -69,6 +72,7 @@ namespace StudentBankAccount
 
             if (_saldo < valor)
             {
+                ContadorSaquesNaoPermitidos++;
                 throw new SaldoInsuficienteException(Saldo, valor);
             }
 
@@ -86,8 +90,16 @@ namespace StudentBankAccount
             {
                 throw new ArgumentException("Valor inválido para a transferência.", nameof(valor));
             }
-
-            Sacar(valor);
+           
+            try
+            {
+                Sacar(valor);
+            }
+            catch (SaldoInsuficienteException ex)
+            {
+                ContadorTransferenciasNaoPermitidas++;
+                throw;
+            }
             contaDestino.Depositar(valor);
            
         }
