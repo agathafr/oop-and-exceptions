@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace StudentBankAccount
 {
-    public class LeitorDeArquivo
+    public class LeitorDeArquivo : IDisposable
     {
         public string Arquivo { get; }
 
         public LeitorDeArquivo(string arquivo)
         {
             Arquivo = arquivo;
+         
             throw new FileNotFoundException();
             Console.WriteLine("Abrindo arquivo: " + arquivo);
         }
@@ -26,9 +27,10 @@ namespace StudentBankAccount
             return "Linha do arquivo";
         }
 
-        public void Fechar()
+        public void Dispose()
         {
             Console.WriteLine("Fechando arquivo...");
         }
+
     }
 }
