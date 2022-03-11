@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace StudentBankAccount
 {
+    [ExcludeFromCodeCoverage]
     public class SaldoInsuficienteException : OperacaoFinanceiraException
     {
         public double Saldo { get; }
@@ -21,7 +19,7 @@ namespace StudentBankAccount
             ValorSaque = valorSaque;
         }
 
-        public SaldoInsuficienteException(string mensagem) : base (mensagem)
+        public SaldoInsuficienteException(string mensagem) : base(mensagem)
         {
 
         }

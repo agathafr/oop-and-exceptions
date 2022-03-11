@@ -1,35 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StudentBankAccount
 {
+    [ExcludeFromCodeCoverage]
     public class LeitorDeArquivo : IDisposable
     {
-        public string Arquivo { get; }
+        private string[] _linhas;
 
         public LeitorDeArquivo(string arquivo)
         {
-            Arquivo = arquivo;
-         
-            throw new FileNotFoundException();
-            Console.WriteLine("Abrindo arquivo: " + arquivo);
+            _linhas = File.ReadAllLines(arquivo);
         }
 
-        public string LerProximaLinha()
+        public GerenciadorDeContas ObterContas()
         {
-            Console.WriteLine("Lendo linha...");
-
-            throw new IOException();
-            return "Linha do arquivo";
+            var gerenciador = new GerenciadorDeContas();
+            foreach (var dados in _linhas)
+            {
+                var conta = dados.Split(',');
+                var agencia = Convert.ToInt32(conta[0]);
+                var numero = Convert.ToInt32(conta[1]);
+                gerenciador.AbrirConta(agencia, numero);
+            }
+            return gerenciador;
         }
 
         public void Dispose()
         {
-            Console.WriteLine("Fechando arquivo...");
+            _linhas = null;
+            GC.SuppressFinalize(this);
         }
 
     }

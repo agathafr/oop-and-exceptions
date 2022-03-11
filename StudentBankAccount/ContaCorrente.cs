@@ -1,29 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StudentBankAccount
 {
     public class ContaCorrente
     {
-        public static double TaxaOperacao { get; private set; }
-
-        public static int TotalDeContasCriadas { get; private set; }
-
         public Cliente Titular { get; set; }
-
         public int ContadorSaquesNaoPermitidos { get; private set; }
         public int ContadorTransferenciasNaoPermitidas { get; private set; }
-      
         public int Numero { get; }
-
-        // private int _agencia;
-
         public int Agencia { get; }
 
-        private double _saldo = 100;
+        private double _saldo;
         public double Saldo
         {
             get
@@ -40,16 +27,15 @@ namespace StudentBankAccount
                 _saldo = value;
             }
         }
-        
+
         public ContaCorrente(int agencia, int numero)
         {
-            if(agencia <= 0)
+            if (agencia <= 0)
             {
-                throw new ArgumentException ("O argumento agência deve ser maior que zero.", nameof(agencia));
-                // Lança uma exceção 
+                throw new ArgumentException("O argumento agência deve ser maior que zero.", nameof(agencia));
             }
 
-            if(numero <= 0)
+            if (numero <= 0)
             {
                 ArgumentException excecao = new ArgumentException("O argumento número deve ser maior que zero.", nameof(numero));
                 throw excecao;
@@ -57,9 +43,7 @@ namespace StudentBankAccount
 
             Agencia = agencia;
             Numero = numero;
-
-            TotalDeContasCriadas++;
-            TaxaOperacao = 30 / TotalDeContasCriadas;
+            _saldo = 100;
 
         }
 
@@ -90,18 +74,22 @@ namespace StudentBankAccount
             {
                 throw new ArgumentException("Valor inválido para a transferência.", nameof(valor));
             }
-           
+
             try
             {
                 Sacar(valor);
+                contaDestino.Depositar(valor);
             }
             catch (SaldoInsuficienteException ex)
             {
                 ContadorTransferenciasNaoPermitidas++;
                 throw new OperacaoFinanceiraException("Operação não realizada.", ex);
             }
-            contaDestino.Depositar(valor);
-           
+        }
+
+        public override string ToString()
+        {
+            return $"Agência: {Agencia}, Número: {Numero}.";
         }
     }
 }
