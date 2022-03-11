@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore /home/runner/work/oop-and-exceptions/StudentBankAccount.sln
+      run: dotnet restore 
     - name: Build
-      run: dotnet build --no-restore /home/runner/work/oop-and-exceptions/StudentBankAccount.sln
+      run: dotnet build --no-restore 
     - name: Test
-      run: dotnet test --no-build --verbosity normal /home/runner/work/oop-and-exceptions/StudentBankAccount.sln
+      run: dotnet test --no-build --verbosity normal 
