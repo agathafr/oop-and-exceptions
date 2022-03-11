@@ -4,8 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentBankAccount.Tests", "StudentBankAccount.Tests\StudentBankAccount.Tests.csproj", "{951C6258-9E01-40B7-A3A8-8937B3E880B9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D709AA11-4EB4-431C-9BA3-64631EE87859} = {D709AA11-4EB4-431C-9BA3-64631EE87859}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentBankAccount", "StudentBankAccountNew\StudentBankAccount.csproj", "{D709AA11-4EB4-431C-9BA3-64631EE87859}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentBankAccount", "StudentBankAccountNew\StudentBankAccount.csproj", "{D709AA11-4EB4-431C-9BA3-64631EE87859}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
