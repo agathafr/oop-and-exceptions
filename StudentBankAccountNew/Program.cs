@@ -10,7 +10,7 @@ namespace StudentBankAccount
         {
             try
             {
-                var gerenciador = CarregarContas("../../contas.txt");
+                var gerenciador = CarregarContas("../../../contas.txt");
                 foreach(var conta in gerenciador.Contas) 
                 {
                     Console.WriteLine(conta);
